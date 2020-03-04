@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{
+  background: #5c746a;
+  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAIElEQVQoU2NcWuD6v2nfFwZcgFFdz/I/TlkGBobhoQAAGHYPccmxFlIAAAAASUVORK5CYII=) repeat;
+  color: #1c1c1c;
+  font-family: 'Raleway', sans-serif;
+  font-size: 5vw;
+}
+#card-container ul {
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  transform-origin: top right;
+  transform: skewY(-4.398705355deg);
+  margin: 0 6.4vw 0 28%;
+}
+#card-container li{
+  transform-origin: top left;
+  transform: skewY(4.398705355deg) rotatez(14.03624deg);
+  padding-top: 200%;
+  z-index: 1;
+  transition-property: z-index;
+  transition-duration: .3s;
+}
+#card-container .details{
+  position: absolute;
+  z-index: 2;
+  width: 250px;
+  height: 450px;
+  top: 0;
+  background-color: #DADDDF;
+  border-radius: 2vw;
+  box-shadow: inset 0px 0px 0px 7vw #FCF8F4;
+  box-sizing: border-box;
+  webkit-filter: drop-shadow(2px 6px 3px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(2px 6px 3px rgba(0, 0, 0, 0.4));
+  transition-property: transform;
+  transition-duration: .3s;
+  //background: url("https://www.cards-outlet.com/wp-content/uploads/2016/11/DESOEN029.jpg") no-repeat 100% 50%;
+}
+
+#card-container h2, p, img {
+  position: absolute;
+  z-index: 4;
+}
+
+#card-container p{
+ font-size:1.4em; 
+  background-color: #FCF8F4;
+  padding: 2% 2.5% 2% 2.5%;
+}
+#card-container p{
+  top: -10%;
+  left: 5%;
+}
+
+#card-container h2{
+  text-align: center;
+  width: 100%;
+  top: 98%;
+  color: white;
+  background-color: transparent;
+  line-height: 140%;
+  transition-property: top;
+  transition-duration: .3s;
+}
+
+
+#card-container li:hover{ 
+  z-index: 4;
+}
+
+#card-container li:hover .details{ 
+  transform: rotate(-14.03624deg) translate(5.5%, 15%);
+}
+@media (min-width:300px) { 
+  body{
+    font-size: 2.75vw;
+  }
+  #card-container ul {
+    grid-template-columns: repeat(2,1fr);
+    grid-column-gap: 3vw;
+    margin: 0 3.9vw 0 15vw;
+  }
+  #card-container .details{
+    box-shadow: inset 0px 0px 0px 4vw #FCF8F4;
+  }
+}
+
+@media (min-width:600px) { 
+  body{
+    font-size: 1.95vw;
+  }
+  #card-container ul {
+    grid-template-columns: repeat(3,1fr);
+    grid-column-gap: 2vw;
+    margin: 0 2.8vw 0 10vw;
+  }
+  #card-container .details{
+    box-shadow: inset 0px 0px 0px 2.8vw #FCF8F4;
+  }
+}
+
+@media (min-width:900px) { 
+  body{
+    font-size: 1.5vw;
+  }
+  #card-container ul {
+    grid-template-columns: repeat(4,1fr);
+    grid-column-gap: 1.5vw;
+    margin: 0 2.2vw 0 8vw;
+  }
+  #card-container .details{
+    box-shadow: inset 0px 0px 0px 2.2vw #FCF8F4;
+  }
+}
+
+@media (min-width:1200px) { 
+  body{
+    font-size: 1.25vw;
+  }
+  #card-container ul {
+    grid-template-columns: repeat(5,1fr);
+    grid-column-gap: 1vw;
+    margin: 0 1.8vw 0 6.5vw;
+  }
+  #card-container .details{
+    box-shadow: inset 0px 0px 0px 1.8vw #FCF8F4;
+  }
+}
+
+@media (min-width:1500px) { 
+  body{
+    font-size: 1vw;
+  }
+  #card-container ul {
+    grid-template-columns: repeat(6,1fr);
+    grid-column-gap: 1vw;
+    margin: 0 1.5vw 0 5.5vw;
+  }
+  #card-container .details{
+    box-shadow: inset 0px 0px 0px 1.5vw #FCF8F4;
+  }
+}
