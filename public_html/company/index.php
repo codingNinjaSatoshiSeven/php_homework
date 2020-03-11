@@ -1,107 +1,53 @@
-<?php
-session_start();
+<?php 
+  session_start();
 
-require_once "authCookieSessionValidate.php";
-
-if ($isLoggedIn) {
-    header("Location:" . "dashboard.php");
-    exit;
-}
-
-if (! empty($_POST["login"])) {
-    $isAuthenticated = false;
-    
-    $username = $_POST["login_id"];
-    $password = $_POST["password"];
-    
-    
-    if ($username == "admin" && $password == "password") {
-        $isAuthenticated = true;
-    }
-    
-    if ($isAuthenticated) {
-        $_SESSION["member_id"] = "admin";
-        
-        header("Location:" . "dashboard.php");
-        exit;
-    } else {
-        $message = "Invalid Login";
-    }
-}
+  require_once "authHelper.php";
 ?>
-<style>
-body {
-    font-family: Arial;
-}
-
-#frmLogin {
-    padding: 20px 40px 40px 40px;
-    background: #d7eeff;
-    border: #acd4f1 1px solid;
-    color: #333;
-    border-radius: 2px;
-    width: 300px;
-}
-
-.field-group {
-    margin-top: 15px;
-}
-
-.input-field {
-    padding: 12px 10px;
-    width: 100%;
-    border: #A3C3E7 1px solid;
-    border-radius: 2px;
-    margin-top: 5px
-}
-
-.form-submit-button {
-    background: #3a96d6;
-    border: 0;
-    padding: 10px 0px;
-    border-radius: 2px;
-    color: #FFF;
-    text-transform: uppercase;
-    width: 100%;
-}
-
-.error-message {
-    text-align: center;
-    color: #FF0000;
-}
-</style>
-
-<form action="" method="post" id="frmLogin">
-    <div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>
-    <div class="field-group">
-        <div>
-            <label for="login">Username</label>
+<html>
+  <head>
+    <link rel="stylesheet" href="./style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/company/">Yu-Gi-Oh Cards</a>
         </div>
-        <div>
-            <input name="login_id" type="text"
-                class="input-field">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/company/">Home</a></li>
+            <li><a href="/company/about.php">About</a></li>
+            <li><a href="/company/products.php">Products</a></li>
+            <li><a href="/company/news.php">News</a></li>
+            <li><a href="/company/contacts.php">Contacts</a></li>
+            <li><a href="/company/secure.php">Secure</a></li>
+            <?php if($isLoggedIn): ?>
+                <li><a href="/company/logout.php">Logout</a></li>
+            <?php endif; ?>
+        </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+        <h1 style="color: white;">
+        <?php
+
+        echo("Home page:");
+
+        ?>
+        </h1>
+        <br/>
+        <div style="color: white">
+            This is home page.
+            <?php if($isLoggedIn): ?>
+                <a href="/company/logout.php">Logout</a>
+            <?php endif; ?>
+        </div>
         </div>
     </div>
-    <div class="field-group">
-        <div>
-            <label for="member_password">Password</label>
-        </div>
-        <div>
-            <input name="password" type="password"
-                class="input-field">
-        </div>
-    </div>
-    <div class="field-group">
-        <div>
-            <input type="checkbox" name="remember" id="remember"
-                <?php if(isset($_COOKIE["member_login"])) { ?> checked
-                <?php } ?> /> <label for="remember-me">Remember me</label>
-        </div>
-    </div>
-    <div class="field-group">
-        <div>
-            <input type="submit" name="login" value="Login"
-                class="form-submit-button"></span>
-        </div>
-    </div>
-</form>
+  </body>
+</html>

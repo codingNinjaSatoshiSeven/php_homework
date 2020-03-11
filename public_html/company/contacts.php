@@ -1,5 +1,9 @@
+<?php 
+  session_start();
 
- <html>
+  require_once "authHelper.php";
+?>
+<html>
   <head>
     <link rel="stylesheet" href="./style.css">
     <meta charset="utf-8">
@@ -20,31 +24,48 @@
         <li><a href="/company/products.php">Products</a></li>
         <li><a href="/company/news.php">News</a></li>
         <li><a href="/company/contacts.php">Contacts</a></li>
+        <li><a href="/company/secure.php">Secure</a></li>
+        <?php if($isLoggedIn): ?>
+            <li><a href="/company/logout.php">Logout</a></li>
+        <?php endif; ?>
       </ul>
     </div>
   </nav>
-  <div class="container" style="color: white;">
-    <div class="row">
-    <h1 style="color: white;">Company Contact:</h1>
-    <?php
+  <div class="container">
+    
+        <h1 style="color: white;">
+        <?php
+            echo("A little about us:");
+        ?>
+        </h1>
+        <p style="color: white">
+            <?php
+                echo("Have you ever want to collect cards? Do you find that you are missing that one cards to complete your powerful deck?");
+            ?>
+        </p>
 
-        // Show all information, defaults to INFO_ALL
-        //$host = 'mysql';
-        //$user = 'root';
-        //$pass = 'password';
-        //$conn = new mysqli($host, $user, $pass);
+        <br />
+        <p style="color: white">
+        <?php
+            echo("Or Do you just merely have nostalgia about the days you are a kid playing Yu-Gi-Oh card?");
+        ?>
+        </p>
 
-        //if ($conn->connect_error) {
-            //die("Connection failed: " . $conn->connect_error);
-        //} 
-        //echo "Connected to MySQL successfully!";
-        $fh = fopen("contacts.txt", 'r');
+        <br />
+        <p style="color: white">
+        <?php
+            echo("You have come to the right place!");
+        ?>
+        </p>
+        <br />
+        <div style="color: white;">
+        <?php
 
-        $pageText = fread($fh, 25000);
-
-        echo nl2br($pageText);
-    ?>
-    </div>
+          $fh = fopen("contacts.txt", 'r');
+          $pageText = fread($fh, 25000);
+          echo nl2br($pageText);
+        ?>
+        </div>
   </div>
   </body>
 </html>

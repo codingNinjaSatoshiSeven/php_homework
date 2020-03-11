@@ -1,3 +1,9 @@
+<?php 
+  session_start();
+
+  require_once "authHelper.php";
+?>
+
 <html>
   <head>
     <link rel="stylesheet" href="./style.css">
@@ -19,6 +25,10 @@
         <li><a href="/company/products.php">Products</a></li>
         <li><a href="/company/news.php">News</a></li>
         <li><a href="/company/contacts.php">Contacts</a></li>
+        <li><a href="/company/secure.php">Secure</a></li>
+        <?php if($isLoggedIn): ?>
+            <li><a href="/company/logout.php">Logout</a></li>
+        <?php endif; ?>
       </ul>
     </div>
   </nav>
