@@ -4,7 +4,7 @@
   require_once "authHelper.php";
 ?>
 <?php 
-  $productname = htmlspecialchars($_GET["card"]);
+  $productname = strval(htmlspecialchars($_GET["card"]));
   $historical_data;
   if(isset($_COOKIE['latest_visit'])) {
     $historical_data = json_decode($_COOKIE['latest_visit']);
@@ -18,6 +18,17 @@
     array_shift($historical_data);
   }
   setcookie('latest_visit', json_encode($historical_data), time()+3600);
+  
+  $most_visit;
+  if(isset($_COOKIE['most_visit'])) {
+    $most_visit = json_decode($_COOKIE['most_visit'], true);
+  }
+  if(!isset($most_visit)) {
+    $most_visit = array();
+  }
+  $count = isset($most_visit[$productname]) ? $most_visit[$productname]:  0;
+  $most_visit[$productname] = $count+1;
+  setcookie('most_visit', json_encode($most_visit));
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,10 +60,50 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
-    <div id="content" style="color: white">
+  <div class="container" style="color: white">
+    <div style="color: white">
       <?php
-        echo htmlspecialchars($_GET["card"]);
+        $hostname = "mysql";
+        $username = "root";
+        $password = "password";
+        $dbname = "cmpe_272";
+        $conn = mysqli_connect($hostname,$username,$password,$dbname);
+
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        } else {
+          queryProduct($productname);
+        }
+
+        function queryProduct($productname) {
+          global $conn;
+          $productQuery = "
+            SELECT * FROM Products
+            WHERE name= '" . $productname . "'
+            LIMIT 1;
+          ";
+
+          if(!($result = mysqli_query($conn, $productQuery))) {
+            echo "Could not execute query!<br>";
+            die(mysqli_error($conn));
+          } else {
+            for ($counter = 0; $row = mysqli_fetch_assoc($result); $counter++) {
+              echo "<div class='margin-top: 110px;'>". $row['description'] ."</div>";
+              echo '<ul style="margin-top: 110px">';
+              echo "
+                <li>
+                  <div class='card-detail'>
+                    <h2>". $row['display_name'] ."</h2>
+                    <img src='". $row['image'] ."' style='padding-top: 30px'>
+                    <h4>$". $row['price'] ."</h4>
+                  </div>
+                </li>
+              ";
+              echo '</ul>';
+              
+            }
+          }
+        }
       ?>
     </div>
   </div>
