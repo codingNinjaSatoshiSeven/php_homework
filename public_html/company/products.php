@@ -33,9 +33,9 @@
       </ul>
     </div>
   </nav>
-  <div id="card-container" style="color: white">
-    <a href='/company/product-last-visit-history.php' style="background-color: white;">See the last Visited Products</a>
-    <a href='/company/product-most-visited.php' style="background-color: white;">See the most Visited Products</a>
+  <div id="card-container" style="color: white; text-align: center;">
+    <a href='/company/product-last-visit-history.php' style="background-color: white;">See your last Visited Products</a>
+    <a href='/company/product-most-visited.php' style="background-color: white;">See your most Visited Products</a>
   <?php
     $hostname = "mysql";
     $username = "root";

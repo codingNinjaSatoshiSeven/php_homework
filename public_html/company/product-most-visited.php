@@ -36,6 +36,7 @@
   </nav>
   <div class="container">
     <div id="content" style="color: white">
+      <div><h1>Your top 5 most frequent visited item</h1></div>
       <?php 
         $most_visit;
         if(isset($_COOKIE['most_visit'])) {

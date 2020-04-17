@@ -36,7 +36,8 @@
   </nav>
   <div class="container">
     <div id="content" style="color: white">
-      <?php 
+      <div><h1>Your recent 5 visited item</h1></div>
+      <?php
         $historical_data;
         if(isset($_COOKIE['latest_visit'])) {
           $historical_data = json_decode($_COOKIE['latest_visit'], true);
@@ -44,8 +45,9 @@
         if(!isset($historical_data)) {
           $historical_data = array();
         }
+        $length = count($historical_data);
         for ($counter = count($historical_data)-1; $counter>=0; $counter--) {
-          echo "<div> #".($counter+1).": ".$historical_data[$counter]."</div>";
+          echo "<div> #".($length-$counter).": ".$historical_data[$counter]."</div>";
         }
       ?>
     </div>
