@@ -46,8 +46,7 @@ INSERT INTO Products (name, display_name, description, price, image) VALUES(
 INSERT INTO Products (name, display_name, description, price, image) VALUES(
   'black_luster_soldier-envoy_of_the_beginning',
   'Black Luster Soldier - Envoy of the Beginning',
-  'Cannot be Normal Summoned/Set. Must first be Special Summoned (from your hand) by banishing 1 LIGHT and 1 DARK monster from your Graveyard. Once per turn, you can activate 1 of these effects. ● Target 1 monster on the field; banish that target face-up. This card cannot attack the turn this effect is activated.
-● If this attacking card destroys an opponent\'s monster by battle, after damage calculation: It can make a second attack in a row.',
+  'Cannot be Normal Summoned/Set. Must first be Special Summoned (from your hand) by banishing 1 LIGHT and 1 DARK monster from your Graveyard. Once per turn, you can activate 1 of these effects. Target 1 monster on the field; banish that target face-up. This card cannot attack the turn this effect is activated. If this attacking card destroys an opponent`s monster by battle, after damage calculation: It can make a second attack in a row.',
   15,
   'https://vignette.wikia.nocookie.net/yugioh/images/3/3b/BlackLusterSoldierEnvoyoftheBeginning-DUSA-EN-UR-1E.png/revision/latest/scale-to-width-down/300?cb=20181028170629'
 );

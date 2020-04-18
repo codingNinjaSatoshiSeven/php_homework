@@ -55,6 +55,7 @@
 
       if(!($result = mysqli_query($conn, $productsQuery))) {
         echo "Could not execute query!<br>";
+        echo("Error description: " . mysqli_error($conn));
         die(mysqli_error($conn));
       } else {
         for ($counter = 0; $row = mysqli_fetch_assoc($result); $counter++) {

@@ -63,9 +63,9 @@
   <div class="container" style="color: white">
     <div style="color: white">
       <?php
-        $hostname = "mysql";
+        $hostname = "mysql"; // change when deploying
         $username = "root";
-        $password = "password";
+        $password = "password"; // change when deploying
         $dbname = "cmpe_272";
         $conn = mysqli_connect($hostname,$username,$password,$dbname);
 
