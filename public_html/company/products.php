@@ -27,6 +27,7 @@
         <li><a href="/company/contacts.php">Contacts</a></li>
         <li><a href="/company/secure.php">Secure</a></li>
         <li><a href="/company/user-query.php">User Query</a></li>
+        <li><a href="/company/all-companies-users.php">All Companies Users</a></li>
         <?php if($isLoggedIn): ?>
             <li><a href="/company/logout.php">Logout</a></li>
         <?php endif; ?>
