@@ -71,7 +71,8 @@
   }
 
   echo "
-    
+    <a href='/company/yugioh-company-users.php' style='background-color: white;'>See only Company Yu-gi-oh cards users</a>
+    <a href='/company/pc314-company-users.php' style='background-color: white;'>See only Company PC314s users</a>
     <table border=\"1\" style=\"padding: 10px;\">
       <thead>
       <h1> Company Yu-gi-oh card users</h1>
