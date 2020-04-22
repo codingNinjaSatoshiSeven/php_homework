@@ -19,10 +19,6 @@
     
   // check if more than 0 record found
   // users array
-  $users_arr=array();
-  $html = ob_get_contents();
-  ob_end_clean();
-  $loop_result = "";
   echo "
   <!DOCTYPE html>
     <html>
@@ -57,50 +53,6 @@
         </nav>
         <div class='container' style='color: white; text-align: center;'>
   ";
-  while($row = $result->fetch_assoc()) {
-    $user_item=array(
-      "id" => $row['id'],
-      "firstname" => $row['firstname'],
-      "lastname" => $row['lastname'],
-      "email" => $row['email'],
-      "address" => $row['address'],
-      "homephone" => $row['homephone'],
-      "cellphone" => $row['cellphone']
-    );
-    array_push($users_arr, $user_item);
-  }
-
-  echo "
-    
-    <table border=\"1\" style=\"padding: 10px;\">
-      <thead>
-      <h1> Company Yu-gi-oh card users</h1>
-      <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Homephone</th>
-        <th>Cellphone</th>
-      </tr>
-    </thead>
-  ";
-
-  for ($counter = 0; $counter < count($users_arr); $counter++) {
-    $row = $users_arr[$counter];
-    echo "<tr>";
-    echo "<td>". $row['id'] ."</td>";
-    echo "<td>". $row['firstname'] ."</td>";
-    echo "<td>". $row['lastname'] ."</td>";
-    echo "<td>". $row['email'] ."</td>";
-    echo "<td>". $row['address'] ."</td>";
-    echo "<td>". $row['homephone'] ."</td>";
-    echo "<td>". $row['cellphone'] ."</td>";
-    echo "</tr>";
-  }
-?>
-<?php
   $url = 'http://pichao314.com/curl.php';
 
   $cURL = curl_init();
@@ -149,4 +101,3 @@
   </html>
   ";
 ?>
-   
