@@ -7,21 +7,31 @@
     
       // object properties
       public $id;
-      public $name;
-      public $display_name;
-      public $description;
-      public $price;
-      public $image;
-      public $visited_times;
+      public $user_id;
+      public $product_id;
+      public $rating;
     
       // constructor with $db as database connection
       public function __construct($db){
         $this->conn = $db;
       }
 
-      function rate($user_id, $product_id, $rating) {
+      function get($user_id, $product_id) {
+
+        $query = "SELECT * from user_reviewed_products WHERE user_id=".$user_id." AND product_id=" .$product_id.";";
+        // prepare query statement
+        if(!($result = mysqli_query($this->conn, $query))) {
+          echo "Could not execute query!<br>";
+          echo("Error description: " . mysqli_error($this->conn));
+          die(mysqli_error($this->conn));
+        } else {
+          return $result;
+        }
+      }
+
+      function rate($user_id, $product_id, $rating, $comment) {
         // select all query
-        $query = "INSERT INTO user_reviewed_products (user_id, product_id, rating) VALUES ('".$user_id."', '".$product_id."', '".$rating."');";
+        $query = "INSERT IGNORE INTO user_reviewed_products (user_id, product_id, rating, comment) VALUES ('".$user_id."', '".$product_id."', '".$rating."', '".$comment."') ON DUPLICATE KEY UPDATE rating='".$rating."', comment='".$comment."';";
 
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {
@@ -31,6 +41,14 @@
         } else {
           return $result;
         }
+      }
+
+      function update($user_id, $product_id, $rating, $comment) {
+        // both rating and comment is required
+        if(is_null($rating) && is_null($comment)) {
+          return; // no operation
+        }
+        $query = "UPDATE user_reviewed_products SET rating='".$rating."', comment='".$comment."' where user_id=".$user_id." AND product_id=".$product_id.";";
       }
   }
 ?>

@@ -4,6 +4,7 @@
   include_once '../api/Database.php';
   include_once '../api/Product.php';
   include_once '../api/UserVisitedPage.php';
+  include_once '../api/UserReviewedProduct.php';
   $database = new Database();
   $db = $database->getConnection();
 
@@ -21,6 +22,7 @@
   // initialize object
   $product = new Product($db);
   $uservisitedpage = new UserVisitedPage($db);
+  $userreviewedproduct = new UserReviewedProduct($db);
 ?>
 
 <!DOCTYPE html>
@@ -49,35 +51,42 @@
         $product->visit($product_id);
         $result = $product->get($product_id);
         $row = $result->fetch_assoc();
+        $rating_result = $userreviewedproduct->get(intval($user_id), intval($product_id));
+        $rating_row = $rating_result->fetch_assoc();
+        $rate = $rating_row['rating'];
+        echo "rate is ". $rate;
         echo"<div id=\"rateYo\"></div>
         <div class=\"counter\"></div>
         <div>". $row['display_name']."</div>
-        <button id=\"getRating\" >Get Rating</button>";
+        <textarea id=\"comment\" rows=\"4\" cols=\"50\">" . $rating_row['comment'] . "</textarea>
+        <button id=\"submitRating\" >Submit Rating</button>";
       ?>
       </div>
     </div>
     <script>
-      $(function () {
-      
+      $(document).ready(function() {
         var $rateYo = $("#rateYo").rateYo({
           normalFill: "#A0A0A0",
+          rating: parseFloat("<?php echo $rate;?>"),
           onChange: function (rating, rateYoInstance) {
             $(this).next().text(rating);
           }
         });
 
-        $("#getRating").click(function () {
+        $("#submitRating").click(function () {
           /* get rating */
           var rating = $rateYo.rateYo("rating");
 
           console.log("rating is >>>", rating);
           var user_id= "<?php echo $_SESSION['yugioh-user-id'];?>";
           var product_id = "<?php echo $product_id;?>";
-
+          var comment =  
+                document.getElementById("comment").value; 
+          console.log("comment is >>>", comment);
           $.ajax({
             type : "POST",  //type of method
             url  : "/company/final_project/api/product-update.php",  //your page
-            data : { rating: +rating, product_id: 1, user_id: user_id },// passing the values
+            data : { rating: +rating, product_id: 1, user_id: user_id, comment: comment },// passing the values
             success: function(res){
               console.log("res is >>>", res);
             },

@@ -27,8 +27,10 @@ CREATE TABLE IF NOT EXISTS user_reviewed_products (
   user_id INT,
   product_id INT,
   rating DECIMAL(3,2),
+  comment TEXT,
   INDEX user_ind (user_id),
   INDEX product_ind (product_id),
+  UNIQUE KEY user_product (user_id,product_id),
   FOREIGN KEY (user_id)
       REFERENCES company_users(id)
       ON DELETE CASCADE,
