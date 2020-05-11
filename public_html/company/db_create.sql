@@ -38,6 +38,18 @@ CREATE TABLE IF NOT EXISTS user_reviewed_products (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS user_visited_pages (
+  id int NOT NULL AUTO_INCREMENT,
+  user_id INT,
+  url varchar(255) NOT NULL,
+  visit_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX user_ind (user_id),
+  FOREIGN KEY (user_id)
+      REFERENCES company_users(id)
+      ON DELETE CASCADE,
+  PRIMARY KEY (id)
+);
+
 
 CREATE TABLE IF NOT EXISTS company_users (
   id int NOT NULL AUTO_INCREMENT,

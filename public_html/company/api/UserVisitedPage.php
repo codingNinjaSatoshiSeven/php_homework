@@ -1,27 +1,24 @@
 <?php
-  class UserReviewedProduct {
+  class UserVisitedPage {
     
       // database connection and table name
       private $conn;
-      private $table_name = "user_reviewed_products";
+      private $table_name = "user_visited_pages";
     
       // object properties
       public $id;
-      public $name;
-      public $display_name;
-      public $description;
-      public $price;
-      public $image;
-      public $visited_times;
+      public $user_id;
+      public $url;
+      public $visit_time;
     
       // constructor with $db as database connection
       public function __construct($db){
         $this->conn = $db;
       }
 
-      function rate($user_id, $product_id, $rating) {
+      function visit($user_id, $url) {
         // select all query
-        $query = "INSERT INTO user_reviewed_products (user_id, product_id, rating) VALUES ('".$user_id."', '".$product_id."', '".$rating."');";
+        $query = "INSERT INTO user_visited_pages (user_id, url) VALUES ('".$user_id."', '".$url."');";
 
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {

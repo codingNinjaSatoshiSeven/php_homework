@@ -3,6 +3,7 @@
   require_once "authHelper.php";
   include_once '../api/Database.php';
   include_once '../api/Product.php';
+  include_once '../api/UserVisitedPage.php';
   $database = new Database();
   $db = $database->getConnection();
 
@@ -19,6 +20,7 @@
 
   // initialize object
   $product = new Product($db);
+  $uservisitedpage = new UserVisitedPage($db);
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +43,9 @@
 
       <div class="row">
       <?php
+        $user_id = $_SESSION['yugioh-user-id'];
+        $url = "http://" .$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $uservisitedpage->visit($user_id, $url);
         $product->visit($product_id);
         $result = $product->get($product_id);
         $row = $result->fetch_assoc();
