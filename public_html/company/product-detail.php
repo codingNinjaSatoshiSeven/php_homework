@@ -68,7 +68,7 @@
       <?php
         $hostname = "mysql"; // change when deploying
         $username = "root";
-        $password = "password"; // change when deploying
+        $password = "cmpe272password"; // change when deploying
         $dbname = "cmpe_272";
         $conn = mysqli_connect($hostname,$username,$password,$dbname);
 

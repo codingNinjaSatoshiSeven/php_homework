@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS Users (
   firstname varchar(255) NOT NULL,
   lastname varchar(255) NOT NULL,
   email varchar(255) NOT NULL UNIQUE,
+  password varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
   homephone int NOT NULL,
   cellphone int NOT NULL,
@@ -16,6 +17,32 @@ CREATE TABLE IF NOT EXISTS Products (
   description text,
   price DECIMAL NOT NULL,
   image text NOT NULL,
+  visited_times INT SET DEFAULT 0,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS UserReviewedProducts (
+  id int NOT NULL AUTO_INCREMENT,
+  user_id INT,
+  product_id INT,
+  rating DECIMAL(3,2),
+  INDEX user_ind (user_id),
+  INDEX product_ind (product_id),
+  FOREIGN KEY (user_id)
+      REFERENCES Users(id)
+      ON DELETE CASCADE,
+  FOREIGN KEY (product_id)
+      REFERENCES Products(id)
+      ON DELETE CASCADE,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS company_users (
+  id int NOT NULL AUTO_INCREMENT,
+  username varchar(255) NOT NULL UNIQUE,
+  password varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
 

@@ -1,5 +1,5 @@
 <?php
-// include database and object files
+  
   include_once './api/Database.php';
   include_once './api/User.php';
   session_start();

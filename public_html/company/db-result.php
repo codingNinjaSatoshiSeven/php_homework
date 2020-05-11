@@ -44,7 +44,7 @@
 
               $hostname = "mysql";
               $username = "root";
-              $password = "password";
+              $password = "cmpe272password";
               $dbname = "cmpe_272";
               $conn = mysqli_connect($hostname,$username,$password,$dbname);
 
