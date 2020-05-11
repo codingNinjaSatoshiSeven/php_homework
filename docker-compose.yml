@@ -12,6 +12,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - ./php/composer.json:/var/www/html/composer.json
       - ./public_html/:/var/www/html/
   mysql:
     image: mysql:5.7
