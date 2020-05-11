@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Products (
 );
 
 
-CREATE TABLE IF NOT EXISTS UserReviewedProducts (
+CREATE TABLE IF NOT EXISTS user_reviewed_products (
   id int NOT NULL AUTO_INCREMENT,
   user_id INT,
   product_id INT,
@@ -30,10 +30,10 @@ CREATE TABLE IF NOT EXISTS UserReviewedProducts (
   INDEX user_ind (user_id),
   INDEX product_ind (product_id),
   FOREIGN KEY (user_id)
-      REFERENCES Users(id)
+      REFERENCES company_users(id)
       ON DELETE CASCADE,
   FOREIGN KEY (product_id)
-      REFERENCES Products(id)
+      REFERENCES company_products(id)
       ON DELETE CASCADE,
   PRIMARY KEY (id)
 );
@@ -46,7 +46,20 @@ CREATE TABLE IF NOT EXISTS company_users (
   PRIMARY KEY (id)
 );
 
-INSERT INTO Products (name, display_name, description, price, image) VALUES(
+
+CREATE TABLE IF NOT EXISTS company_products (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  display_name varchar(255) NOT NULL,
+  description text,
+  price DECIMAL NOT NULL,
+  image text NOT NULL,
+  visited_times INT DEFAULT 0,
+  PRIMARY KEY (id)
+);
+
+
+INSERT INTO company_products (name, display_name, description, price, image) VALUES(
   'darklord_morningstar',
   'Darklord Morningstar',
   'Cannot be Special Summoned. If this card is Tribute Summoned: You can Special Summon "Darklord" monsters from your hand and/or Deck, up to the number of Effect Monsters your opponent controls. While you control another "Darklord" monster, your opponent cannot target this card with card effects. Once per turn: You can send cards from the top of your Deck to the Graveyard, equal to the number of "Darklord" monsters on the field, and if you do, gain 500 LP for each "Darklord" card sent to the Graveyard by this effect.',
@@ -54,7 +67,7 @@ INSERT INTO Products (name, display_name, description, price, image) VALUES(
   'https://vignette.wikia.nocookie.net/yugioh/images/5/53/DarklordMorningstar-DESO-EN-ScR-1E.png/revision/latest/scale-to-width-down/300?cb=20161117191828'
 );
 
-INSERT INTO Products (name, display_name, description, price, image) VALUES(
+INSERT INTO company_products (name, display_name, description, price, image) VALUES(
   'blue-eyes_white_dragon',
   'Blue-eyes White Dragon',
   'This legendary dragon is a powerful engine of destruction. Virtually invincible, very few have faced this awesome creature and lived to tell the tale.',

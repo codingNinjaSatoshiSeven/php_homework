@@ -3,7 +3,7 @@
     
       // database connection and table name
       private $conn;
-      private $table_name = "Products";
+      private $table_name = "company_products";
     
       // object properties
       public $id;
@@ -23,8 +23,23 @@
       function read(){
         
         // select all query
-        $query = "SELECT * from Products;";
+        $tablename = $this->table_name;
+        $query = "SELECT * from ".$tablename. ";";
 
+        // prepare query statement
+        if(!($result = mysqli_query($this->conn, $query))) {
+          echo "Could not execute query!<br>";
+          echo("Error description: " . mysqli_error($this->conn));
+          die(mysqli_error($this->conn));
+        } else {
+          return $result;
+        }
+      }
+
+      function get($id) {
+        // select one user by username
+        $tablename = $this->table_name;
+        $query = "SELECT * from ".$tablename." WHERE id='".$id."';";
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {
           echo "Could not execute query!<br>";
@@ -37,7 +52,8 @@
 
       function visit($product_id) {
         // select all query
-        $query = "update Products set visited_times = visited_times+1 where id='".$product_id."';";
+        $tablename = $this->table_name;
+        $query = "update " .$tablename. " set visited_times = visited_times+1 where id='".$product_id."';";
 
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {

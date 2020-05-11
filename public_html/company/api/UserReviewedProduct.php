@@ -3,7 +3,7 @@
     
       // database connection and table name
       private $conn;
-      private $table_name = "UserReviewedProducts";
+      private $table_name = "user_reviewed_products;";
     
       // object properties
       public $id;
@@ -19,25 +19,9 @@
         $this->conn = $db;
       }
 
-      // read products
-      function read(){
-        
-        // select all query
-        $query = "SELECT * from '".$this.$table_name."';";
-
-        // prepare query statement
-        if(!($result = mysqli_query($this->conn, $query))) {
-          echo "Could not execute query!<br>";
-          echo("Error description: " . mysqli_error($this->conn));
-          die(mysqli_error($this->conn));
-        } else {
-          return $result;
-        }
-      }
-
       function rate($user_id, $product_id, $rating) {
         // select all query
-        $query = "INSERT INTO UserReviewedProducts (user_id, product_id, rating) VALUES ('".$user_id."', '".$product_id."', '".$rating."');";
+        $query = "INSERT INTO user_reviewed_products (user_id, product_id, rating) VALUES ('".$user_id."', '".$product_id."', '".$rating."');";
 
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {
