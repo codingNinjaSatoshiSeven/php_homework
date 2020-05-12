@@ -29,9 +29,9 @@
         }
       }
 
-      function rate($user_id, $product_id, $rating, $comment) {
+      function rate($user_id, $product_id, $rating, $comment, $liked) {
         // select all query
-        $query = "INSERT IGNORE INTO user_reviewed_products (user_id, product_id, rating, comment) VALUES ('".$user_id."', '".$product_id."', '".$rating."', '".$comment."') ON DUPLICATE KEY UPDATE rating='".$rating."', comment='".$comment."';";
+        $query = "INSERT IGNORE INTO user_reviewed_products (user_id, product_id, rating, comment, liked) VALUES ('".$user_id."', '".$product_id."', '".$rating."', '".$comment."', ".$liked.") ON DUPLICATE KEY UPDATE rating='".$rating."', comment='".$comment."', liked='".$liked."';";
 
         // prepare query statement
         if(!($result = mysqli_query($this->conn, $query))) {

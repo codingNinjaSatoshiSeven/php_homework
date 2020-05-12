@@ -29,5 +29,29 @@
           return $result;
         }
       }
+
+      function get_most_visited_pages($limit=5) {
+        $query = "SELECT count(url) as url_count, url  from user_visited_pages GROUP BY url ORDER BY url_count DESC LIMIT ".$limit.";";
+        // prepare query statement
+        if(!($result = mysqli_query($this->conn, $query))) {
+          echo "Could not execute query!<br>";
+          echo("Error description: " . mysqli_error($this->conn));
+          die(mysqli_error($this->conn));
+        } else {
+          return $result;
+        }
+      }
+
+      function get_user_most_visited_pages($user_id, $limit=5) {
+        $query = "SELECT count(url) as url_count, url from user_visited_pages WHERE user_id=".$user_id." GROUP BY url ORDER BY url_count DESC LIMIT ".$limit.";";
+        // prepare query statement
+        if(!($result = mysqli_query($this->conn, $query))) {
+          echo "Could not execute query!<br>";
+          echo("Error description: " . mysqli_error($this->conn));
+          die(mysqli_error($this->conn));
+        } else {
+          return $result;
+        }
+      }
   }
 ?>

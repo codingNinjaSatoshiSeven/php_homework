@@ -34,10 +34,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <style>
+    .fa {
+      font-size: 50px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .fa:hover {
+      color: darkblue;
+    }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -59,34 +71,45 @@
         <div class=\"counter\"></div>
         <div>". $row['display_name']."</div>
         <textarea id=\"comment\" rows=\"4\" cols=\"50\">" . $rating_row['comment'] . "</textarea>
+        <i onclick=\"myFunction(this)\" id=\"like\" class=\"fa fa-thumbs-up\"></i>
+        <i onclick=\"myFunction2(this)\" id=\"dislike\" class=\"fa fa-thumbs-down\"></i>
         <button id=\"submitRating\" >Submit Rating</button>";
       ?>
       </div>
     </div>
     <script>
+      var like = null;
+      function myFunction(x) {
+        like = true;
+      }
+
+      function myFunction2(x) {
+        like = false;
+      }
       $(document).ready(function() {
         var $rateYo = $("#rateYo").rateYo({
           normalFill: "#A0A0A0",
-          rating: parseFloat("<?php echo $rate;?>"),
+          rating: parseFloat("<?php echo $rate;?>") || 0,
           onChange: function (rating, rateYoInstance) {
             $(this).next().text(rating);
           }
         });
+        
 
         $("#submitRating").click(function () {
           /* get rating */
           var rating = $rateYo.rateYo("rating");
-
+          console.log("clicked>>>")
           console.log("rating is >>>", rating);
-          var user_id= "<?php echo $_SESSION['yugioh-user-id'];?>";
-          var product_id = "<?php echo $product_id;?>";
+          var user_id= parseInt("<?php echo $_SESSION['yugioh-user-id'];?>");
+          var product_id = parseInt("<?php echo $product_id;?>");
           var comment =  
                 document.getElementById("comment").value; 
           console.log("comment is >>>", comment);
           $.ajax({
             type : "POST",  //type of method
             url  : "/company/final_project/api/product-update.php",  //your page
-            data : { rating: +rating, product_id: 1, user_id: user_id, comment: comment },// passing the values
+            data : { rating: +rating, product_id: product_id, user_id: user_id, comment: comment, liked: like },// passing the values
             success: function(res){
               console.log("res is >>>", res);
             },

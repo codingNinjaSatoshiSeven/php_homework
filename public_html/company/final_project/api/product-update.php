@@ -20,6 +20,9 @@
   $array['product_id'] = $product_id;
   $array['user_id'] = $user_id;
   $array['comment'] = $comment;
+
+  $liked = $liked == 'true'? 1: 0;
+  $array['liked'] = $liked;
   if (!$user_id) {
     http_response_code(401);
     echo json_encode(array('error'=> 'user not authenticated'));
@@ -28,7 +31,7 @@
     http_response_code(400);
     echo json_encode(array('error'=> 'product_id is required'));
   }
-  $product->rate($user_id, $product_id, $rating, $comment);
+  $product->rate($user_id, $product_id, $rating, $comment, (int) $liked);
   http_response_code(200);
   echo json_encode($array);
 ?>

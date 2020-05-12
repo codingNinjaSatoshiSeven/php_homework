@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS user_reviewed_products (
   product_id INT,
   rating DECIMAL(3,2),
   comment TEXT,
+  liked BOOLEAN,
   INDEX user_ind (user_id),
   INDEX product_ind (product_id),
   UNIQUE KEY user_product (user_id,product_id),
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS user_visited_pages (
   url varchar(255) NOT NULL,
   visit_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX user_ind (user_id),
+  INDEX url_ind (url),
   FOREIGN KEY (user_id)
       REFERENCES company_users(id)
       ON DELETE CASCADE,
