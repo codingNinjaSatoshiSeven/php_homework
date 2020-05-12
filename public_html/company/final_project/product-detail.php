@@ -28,13 +28,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -66,26 +66,30 @@
         $rating_result = $userreviewedproduct->get(intval($user_id), intval($product_id));
         $rating_row = $rating_result->fetch_assoc();
         $rate = $rating_row['rating'];
+        $checked = ($rating_row['liked'] == 1 ? true : false);
         echo "rate is ". $rate;
         echo"<div id=\"rateYo\"></div>
         <div class=\"counter\"></div>
         <div>". $row['display_name']."</div>
         <textarea id=\"comment\" rows=\"4\" cols=\"50\">" . $rating_row['comment'] . "</textarea>
-        <i onclick=\"myFunction(this)\" id=\"like\" class=\"fa fa-thumbs-up\"></i>
-        <i onclick=\"myFunction2(this)\" id=\"dislike\" class=\"fa fa-thumbs-down\"></i>
+        <div class=\"pretty p-icon p-toggle p-plain\">
+          <input type=\"checkbox\" id=\"liked\" checked=".$checked . "/>
+          <div class=\"state p-success-o p-off\">
+            <i class=\"fa fa-thumbs-down\"></i>
+            <label>Mark Like</label>
+          </div>
+          <div class=\"state p-danger-o p-on\">
+              <i class=\"fa fa-thumbs-up\"></i>
+              <label>Mark Dislike</label>
+          </div>
+        </div>
         <button id=\"submitRating\" >Submit Rating</button>";
       ?>
       </div>
     </div>
     <script>
       var like = null;
-      function myFunction(x) {
-        like = true;
-      }
 
-      function myFunction2(x) {
-        like = false;
-      }
       $(document).ready(function() {
         var $rateYo = $("#rateYo").rateYo({
           normalFill: "#A0A0A0",
@@ -104,8 +108,10 @@
           var user_id= parseInt("<?php echo $_SESSION['yugioh-user-id'];?>");
           var product_id = parseInt("<?php echo $product_id;?>");
           var comment =  
-                document.getElementById("comment").value; 
+                document.getElementById("comment").value;
+          like = document.getElementById("liked").checked;
           console.log("comment is >>>", comment);
+          console.log("like is >>>", like);
           $.ajax({
             type : "POST",  //type of method
             url  : "/company/final_project/api/product-update.php",  //your page

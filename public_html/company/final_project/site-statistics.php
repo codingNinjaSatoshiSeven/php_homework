@@ -43,6 +43,7 @@
         $result = $product->get_most_visited();
         $result2 = $product->get_highest_rating();
         $result3 = $uservisitedpage->get_most_visited_pages();
+        $result4 = $product->get_most_like();
         echo"<div><label>Top visited item</label></div>";
         while($row = $result->fetch_assoc()) {
           echo"<div>" .$row['display_name']. " " .$row['visited_times']. "</div>";
@@ -54,6 +55,10 @@
         echo"<div><label>Most Visited Place</label></div>";
         while($row3 = $result3->fetch_assoc()) {
           echo"<div>" .$row3['url']. " " .$row3['url_count']. "</div>";
+        }
+        echo"<div><label>Most liked item</label></div>";
+        while($row4 = $result4->fetch_assoc()) {
+          echo"<div>" .$row4['display_name']. " " .$row4['liked_count']. "</div>";
         }
       ?>
       </div>

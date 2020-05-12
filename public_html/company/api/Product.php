@@ -88,7 +88,18 @@
           return $result;
         }
       }
-      
+
+      function get_most_like($limit=5) {
+        $query = "SELECT SUM(liked) as liked_count,display_name, product_id  from user_reviewed_products INNER JOIN company_products on user_reviewed_products.product_id = company_products.id GROUP BY product_id ORDER BY liked_count DESC LIMIT ".$limit.";";
+        if(!($result = mysqli_query($this->conn, $query))) {
+          echo "Could not execute query!<br>";
+          echo("Error description: " . mysqli_error($this->conn));
+          die(mysqli_error($this->conn));
+        } else {
+          return $result;
+        }
+      }
+
       function get_user_highest_rating($user_id, $limit=5) {
         $query = "SELECT AVG(rating) as avg_rating,display_name, product_id from user_reviewed_products INNER JOIN company_products on user_reviewed_products.product_id = company_products.id WHERE user_id=".$user_id." GROUP BY product_id ORDER BY avg_rating DESC LIMIT ".$limit.";";
         if(!($result = mysqli_query($this->conn, $query))) {
